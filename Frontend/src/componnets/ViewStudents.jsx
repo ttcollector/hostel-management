@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { getStudent } from '../services/api';
 
 function ViewStudents() {
-  const students = [
-    // get students details
-    { name: "Ravi Kumar", regno: "AIT123", hostel: "APJ" },
-    { name: "Sneha Sharma", regno: "AIT456", hostel: "Girls Hostel" },
-    { name: "Arjun Mehta", regno: "AIT789", hostel: "Teen ka dibba 1" },
-  ];
+
+  const [allstudents,setAllstudents] = useState([]);
+  useEffect(()=>{
+    getStudent()
+    .then((res)=>setAllstudents(res.data))
+  },[])
+
+
 
   const navigate = useNavigate();
 
@@ -27,11 +30,11 @@ function ViewStudents() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {students.map((student, index) => (
+                {allstudents.map((student,) => (
                   <tr
-                    key={index}
+                    key={student._id}
                     className="hover:bg-blue-50 transition duration-200"
-                    onClick={()=>navigate("/studentdetails")}
+                    onClick={()=>navigate(`/studentdetails/${student._id}`)}
                   >
                     <td className="px-6 py-4 font-medium">{student.name}</td>
                     <td className="px-6 py-4">{student.regno}</td>

@@ -1,7 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { editStudents, studentDetail } from "../services/api";
 
 function EditStudent() {
+
+  const {id} = useParams();
 
   const [form, setForm] = useState({
     name: "",
@@ -15,13 +18,29 @@ function EditStudent() {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    studentDetail(id)
+    .then(res => {
+      setForm({
+        name: res.data.name || "v",
+        regno: res.data.regno || "",
+        mobile: res.data.mobile || "",
+        gender: res.data.gender || "",
+        branch: res.data.branch || "",
+        year: res.data.year || "",
+        hostel: res.data.hostel || "",
+      })
+    })
+
+  }, [id])
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStudent(form).then(navigate("/"));
+    editStudents(form, id).then(navigate(`/studentdetails/${id}`));
   };
 
   return (

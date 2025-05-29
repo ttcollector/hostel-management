@@ -6,7 +6,7 @@ const api = axios.create(
     }
 )
 export const addStudent = (data)=> api.post('/addstudents', data);
-export const deleteStudent = (data)=> api.post('/delete', data);
-export const editStudents = (data)=> api.put('/editstudents', data);
-export const studentdetails = (data)=> api.get('/studentdetails', data);
+export const deleteStudent = (id)=> api.delete(`/delete/${id}`, );
+export const editStudents = (data, id)=> api.put(`editstudents/${id}`, data);
+export const studentDetail = (id)=> api.get(`studentdetails/${id}`);
 export const getStudent = ()=> api.get('/', );

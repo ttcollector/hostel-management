@@ -30,11 +30,7 @@ export const updateStudents = async(req , res) => {
 //delete a studnet
 export const deleteStudent = async (req, res) => {
     const{id} = req.params;
-    const deleteStudent = await Student.findByIdAndDelete(id    )
-    res.body({
-        message: "student deleted",
-        deleteStudent,
-    })
+    const deleteStudent = await Student.findByIdAndDelete(id)
 }
 
 //view all studnet

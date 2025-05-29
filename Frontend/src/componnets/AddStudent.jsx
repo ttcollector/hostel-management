@@ -14,6 +14,10 @@ function AddStudent() {
     hostel: "apj",
   });
 
+  
+
+
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
